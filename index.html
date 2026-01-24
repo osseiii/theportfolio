@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ossei - Creative Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .smiley-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 120px;
+            z-index: 10000;
+            animation: smileyPop 2s ease-out forwards;
+            pointer-events: none;
+            text-shadow: 0 0 40px rgba(14, 165, 233, 0.6);
+        }
+
+        @keyframes smileyPop {
+            0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.3) rotate(180deg); opacity: 1; }
+            70% { transform: translate(-50%, -50%) scale(1.2) rotate(360deg); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(0) rotate(360deg); opacity: 0; }
+        }
+
+        .profile-popup {
+            position: fixed;
+            top: 100px;
+            right: -400px;
+            width: 280px;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(14, 165, 233, 0.05));
+            border: 2px solid rgba(14, 165, 233, 0.3);
+            border-radius: 20px;
+            padding: 24px;
+            z-index: 9999;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            animation: slideInProfile 0.8s ease-out 2.2s forwards;
+        }
+
+        @keyframes slideInProfile {
+            to { right: 40px; }
+        }
+
+        .profile-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #ffffff;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .profile-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            border: 3px solid rgba(14, 165, 233, 0.4);
+            animation: profilePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes profilePulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(14, 165, 233, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(14, 165, 233, 0.8); }
+        }
+
+        .profile-info {
+            text-align: center;
+        }
+
+        .profile-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .profile-role {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 12px;
+        }
+
+        .profile-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 13px;
+            color: #0ea5e9;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: blink 2s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        header {
+            padding: 80px 0 120px;
+            text-align: center;
+            position: relative;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.08), transparent);
+            pointer-events: none;
+            animation: pulseGlow 8s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.3; transform: translateX(-50%) scale(1); }
+            50% { opacity: 0.6; transform: translateX(-50%) scale(1.1); }
+        }
+
+        .greeting {
+            font-size: 15px;
+            color: #94a3b8;
+            margin-bottom: 16px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.2s forwards;
+        }
+
+        h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.4s forwards;
+        }
+
+        .intro {
+            font-size: 18px;
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.6s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: #0ea5e9;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.8s forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-btn:hover::before {
+            left: 100%;
+        }
+
+        .cta-btn:hover {
+            background: #0284c7;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(14, 165, 233, 0.35);
+        }
+
+        .projects {
+            padding: 60px 0;
+        }
+
+        .project-card {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.03), rgba(14, 165, 233, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 32px;
+            transition: all 0.5s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #0ea5e9, transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover {
+            border-color: rgba(14, 165, 233, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 24px 48px rgba(14, 165, 233, 0.2);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .project-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(14, 165, 233, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            transition: all 0.4s ease;
+        }
+
+        .project-card:hover .project-icon {
+            background: rgba(14, 165, 233, 0.2);
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        .project-title {
+            font-size: 24px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .project-card:hover .project-title {
+            color: #0ea5e9;
+        }
+
+        .project-description {
+            font-size: 15px;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .project-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .project-card:hover .project-highlights {
+            max-height: 200px;
+            opacity: 1;
+        }
+
+        .highlight-tag {
+            padding: 6px 14px;
+            background: rgba(14, 165, 233, 0.15);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 20px;
+            font-size: 13px;
+            color: #38bdf8;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #0ea5e9;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: gap 0.3s ease;
+        }
+
+        .project-link:hover {
+            gap: 10px;
+            color: #38bdf8;
+        }
+
+        .testimonials-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.02), transparent);
+        }
+
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 48px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .testimonials-container {
+            position: relative;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        .testimonials-track {
+            display: flex;
+            gap: 24px;
+            transition: transform 0.5s ease;
+        }
+
+        .testimonial-card {
+            min-width: 350px;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.05), rgba(14, 165, 233, 0.02));
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 28px;
+            flex-shrink: 0;
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .testimonial-info h4 {
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
+
+        .testimonial-role {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .testimonial-text {
+            font-size: 14px;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .testimonial-stars {
+            color: #fbbf24;
+            font-size: 14px;
+        }
+
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .nav-btn {
+            background: rgba(14, 165, 233, 0.1);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            color: #ffffff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+
+        .nav-btn:hover {
+            background: rgba(14, 165, 233, 0.2);
+            transform: scale(1.1);
+        }
+
+        .contact-section {
+            padding: 100px 0 80px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contact-info h2 {
+            font-size: 40px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .contact-subtitle {
+            font-size: 18px;
+            color: #94a3b8;
+            margin-bottom: 40px;
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            background: rgba(14, 165, 233, 0.08);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            border-radius: 12px;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: rgba(14, 165, 233, 0.2);
+            transform: translateX(8px);
+        }
+
+        .contact-form {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.05), rgba(14, 165, 233, 0.02));
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #94a3b8;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0ea5e9;
+            background: rgba(14, 165, 233, 0.05);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            border: none;
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(14, 165, 233, 0.35);
+        }
+
+        .cv-link {
+            display: inline-block;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(14, 165, 233, 0.25);
+        }
+
+        .cv-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(14, 165, 233, 0.4);
+        }
+
+        .cv-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cv-modal.active {
+            display: flex;
+        }
+
+        .cv-modal-content {
+            background: #1a1a1a;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            border-radius: 20px;
+            border: 2px solid rgba(14, 165, 233, 0.3);
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+        }
+
+        .cv-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(14, 165, 233, 0.05));
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cv-modal-close {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #ffffff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .cv-modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .cv-modal-body {
+            padding: 40px;
+            overflow-y: auto;
+            max-height: calc(90vh - 80px);
+            position: relative;
+            user-select: none;
+        }
+
+        .cv-section {
+            margin-bottom: 40px;
+        }
+
+        .cv-section h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #0ea5e9;
+            border-bottom: 2px solid rgba(14, 165, 233, 0.3);
+            padding-bottom: 10px;
+        }
+
+        .cv-item {
+            margin-bottom: 24px;
+        }
+
+        .cv-item h4 {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .cv-meta {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .cv-item p {
+            font-size: 15px;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        .cv-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .cv-skill-tag {
+            padding: 8px 16px;
+            background: rgba(14, 165, 233, 0.15);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 20px;
+            font-size: 14px;
+            color: #38bdf8;
+        }
+
+        .cv-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 80px;
+            color: rgba(14, 165, 233, 0.05);
+            font-weight: 700;
+            pointer-events: none;
+        }
+
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        @media (max-width: 968px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 36px; }
+            .profile-popup { right: 20px; width: calc(100% - 40px); max-width: 280px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="smiley-popup">😉</div>
+
+    <div class="profile-popup">
+        <button class="profile-close" onclick="this.parentElement.style.display='none'">×</button>
+        <div class="profile-image">👤</div>
+        <div class="profile-info">
+            <div class="profile-name">Emmanuel Ossei-Anto</div>
+            <div class="profile-role">Multi-Disciplinary Creative</div>
+            <div class="profile-status">
+                <span class="status-dot"></span>
+                Available for work
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <div class="container">
+            <p class="greeting">Welcome to my corner on the internet:) </p>
+            <h1>Hey there! I'm Emmanuel Ossei-Anto</h1>
+            <p class="intro">A multi-disciplinary creative with a passion for building exceptional digital experiences.</p>
+            <a href="#contact" class="cta-btn">Let's Collaborate</a>
+        </div>
+    </header>
+
+    <section class="projects">
+        <div class="container">
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">🔧</div>
+                    <h3 class="project-title">Network Engineering</h3>
+                </div>
+                <p class="project-description">Building robust, secure, and scalable network infrastructure solutions.</p>
+                <div class="project-highlights">
+            
+                    <span class="highlight-tag">Network Security</span>
+    
+                </div>
+                <a href="#" class="project-link">View Projects →</a>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">🎨</div>
+                    <h3 class="project-title">UI/UX Design</h3>
+                </div>
+                <p class="project-description">Crafting beautiful, intuitive interfaces that users love.</p>
+                <div class="project-highlights">
+                    <span class="highlight-tag">Mobile App Design</span>
+                    <span class="highlight-tag">Web Interfaces</span>
+                    
+                </div>
+                <a href="#" class="project-link">See Behance →</a>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">💻</div>
+                    <h3 class="project-title">Vibe Coding</h3>
+                </div>
+                <p class="project-description">Writing clean, efficient code that brings creative visions to life.</p>
+                <div class="project-highlights">
+                    
+                    <span class="highlight-tag">Full-Stack Dev</span>
+                    <span class="highlight-tag">Web Animations</span>
+                </div>
+                <a href="#" class="project-link">Explore Code →</a>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">📊</div>
+                    <h3 class="project-title">Finance & Analysis</h3>
+                </div>
+                <p class="project-description">Data-driven financial strategies and insights that help businesses grow.</p>
+                <div class="project-highlights">
+                    <span class="highlight-tag">Financial Modeling</span>
+                    <span class="highlight-tag">Data Analysis</span>
+                    <span class="highlight-tag">Budget Planning</span>
+                </div>
+                <a href="#" class="project-link">Learn More →</a>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">💰</div>
+                    <h3 class="project-title">Investment Strategy</h3>
+                </div>
+                <p class="project-description">Strategic portfolio management and investment analysis.</p>
+                <div class="project-highlights">
+                    <span class="highlight-tag">Portfolio Management</span>
+                    <span class="highlight-tag">Market Analysis</span>
+                    <span class="highlight-tag">Risk Assessment</span>
+                </div>
+                <a href="#" class="project-link">View Insights →</a>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">📸</div>
+                    <h3 class="project-title">Photography</h3>
+                </div>
+                <p class="project-description">Capturing moments and telling stories through the lens.</p>
+                <div class="project-highlights">
+                    <span class="highlight-tag">Portrait Photography</span>
+                    <span class="highlight-tag">Landscape</span>
+                    <span class="highlight-tag">Event Coverage</span>
+                </div>
+                <a href="#" class="project-link">View Gallery →</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title">What People Say</h2>
+            <div class="testimonials-container">
+                <div class="testimonials-track" id="track">
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">S</div>
+                            <div class="testimonial-info">
+                                <h4>Samuel</h4>
+                                <div class="testimonial-role">CEO, AGRIBLOOM</div>
+                            </div>
+                        </div>
+                        <p class="testimonial-text">"Exceptional work on our network infrastructure. The system runs flawlessly!"</p>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">SK</div>
+                            <div class="testimonial-info">
+                                <h4>Sarah Kim</h4>
+                                <div class="testimonial-role">Creative Director</div>
+                            </div>
+                        </div>
+                        <p class="testimonial-text">"The UI/UX designs exceeded our expectations. A true design master!"</p>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">MP</div>
+                            <div class="testimonial-info">
+                                <h4>Michael Peterson</h4>
+                                <div class="testimonial-role">CTO, StartUp Labs</div>
+                            </div>
+                        </div>
+                        <p class="testimonial-text">"Clean, efficient code. Delivered ahead of schedule!"</p>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">LR</div>
+                            <div class="testimonial-info">
+                                <h4>Lisa Rodriguez</h4>
+                                <div class="testimonial-role">Finance Manager</div>
+                            </div>
+                        </div>
+                        <p class="testimonial-text">"Incredible financial insights. Returns have been outstanding!"</p>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">DM</div>
+                            <div class="testimonial-info">
+                                <h4>David Martinez</h4>
+                                <div class="testimonial-role">Wedding Planner</div>
+                            </div>
+                        </div>
+                        <p class="testimonial-text">"Stunning photography! Every shot captures emotion perfectly."</p>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">EJ</div>
+                            <div class="testimonial-info">
+                                <h4>Emily Johnson</h4>
+                                <div class="testimonial-role">Product Manager</div>
+                            </div>
+                        </div>
+                        <p class="testimonial-text">"Great communication and creative solutions. A true professional!"</p>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">RB</div>
+                            <div class="testimonial-info">
+                                <h4>Robert Brown</h4>
+                                <div class="testimonial-role">IT Director</div>
+                            </div>
+                        </div>
+                        <p class="testimonial-text">"Network security has never been better. Best decision we made!"</p>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">AC</div>
+                            <div class="testimonial-info">
+                                <h4>Amanda Chen</h4>
+                                <div class="testimonial-role">Founder, DesignHub</div>
+                            </div>
+                        </div>
+                        <p class="testimonial-text">"Incredible attention to detail. Perfectly aligned with our brand!"</p>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">TW</div>
+                            <div class="testimonial-info">
+                                <h4>Thomas White</h4>
+                                <div class="testimonial-role">Business Owner</div>
+                            </div>
+                        </div>
+                        <p class="testimonial-text">"Financial planning was spot-on. Business is now more profitable!"</p>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">NG</div>
+                            <div class="testimonial-info">
+                                <h4>Nina Garcia</h4>
+                                <div class="testimonial-role">Marketing Director</div>
+                            </div>
+                        </div>
+                        <p class="testimonial-text">"From concept to execution, everything was perfect!"</p>
+                        <div class="testimonial-stars">★★★★★</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-nav">
+                <button class="nav-btn" onclick="scroll('left')">←</button>
+                <button class="nav-btn" onclick="scroll('right')">→</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>Let's Connect</h2>
+                    <p class="contact-subtitle">Ready to start your next project?</p>
+                    <div class="social-links">
+                        <a href="https://behance.net/yourprofile" class="social-link" target="_blank">
+                            <span>🎨</span> View my Behance
+                        </a>
+                        <a href="https://linkedin.com/in/yourprofile" class="social-link" target="_blank">
+                            <span>💼</span> Connect on LinkedIn
+                        </a>
+                        <a href="https://github.com/yourusername" class="social-link" target="_blank">
+                            <span>💻</span> Check out GitHub
+                        </a>
+                        <a href="https://instagram.com/yourprofile" class="social-link" target="_blank">
+                            <span>📸</span> Follow on Instagram
+                        </a>
+                    </div>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <a href="#" class="cv-link" onclick="openCV(event)">📄 View My CV</a>
+                    </div>
+                </div>
+
+                <form class="contact-form" action="https://formsubmit.co/emmakwe12@gmail.com" method="POST">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" required placeholder="john@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="whatsapp">WhatsApp Number (Optional)</label>
+                        <input type="tel" id="whatsapp" name="whatsapp" placeholder="+233 234 567 8900">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required placeholder="Tell me about your project..."></textarea>
+                    </div>
+                    <input type="hidden" name="_subject" value="New Portfolio Contact!">
+                    <input type="hidden" name="_captcha" value="false">
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <div class="cv-modal" id="cvModal">
+        <div class="cv-modal-content">
+            <div class="cv-modal-header">
+                <h3>Curriculum Vitae - Emmanuel Ossei-Anto</h3>
+                <button class="cv-modal-close" onclick="closeCV()">×</button>
+            </div>
+            <div class="cv-modal-body">
+                <div class="cv-watermark">PREVIEW ONLY</div>
+                <div class="cv-section">
+                    <h3>Professional Summary</h3>
+                    <p style="color: #94a3b8;">Multi-disciplinary professional with expertise in network engineering, UI/UX design, web development, finance, and photography.</p>
+                </div>
+                <div class="cv-section">
+                    <h3>Work Experience</h3>
+                    <div class="cv-item">
+                        <h4>Senior Network Engineer</h4>
+                        <div class="cv-meta">Tech Innovations Inc. • 2022 - Present</div>
+                        <p>Designed enterprise-level network infrastructure for Fortune 500 clients.</p>
+                    </div>
+                    <div class="cv-item">
+                        <h4>UI/UX Designer & Developer</h4>
+                        <div class="cv-meta">Freelance • 2020 - Present</div>
+                        <p>Created engaging user interfaces for 50+ clients across various industries.</p>
+                    </div>
+                </div>
+                <div class="cv-section">
+                    <h3>Skills & Expertise</h3>
+                    <div class="cv-skills">
+                        <span class="cv-skill-tag">Network Architecture</span>
+                        <span class="cv-skill-tag">UI/UX Design</span>
+                        <span class="cv-skill-tag">React.js</span>
+                        <span class="cv-skill-tag">Financial Analysis</span>
+                        <span class="cv-skill-tag">Photography</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; ossei-anto. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let pos = 0;
+        const track = document.getElementById('track');
+        
+        function scroll(dir) {
+            const w = 374;
+            const max = track.scrollWidth - track.parentElement.clientWidth;
+            pos = dir === 'right' ? Math.min(pos + w, max) : Math.max(pos - w, 0);
+            track.style.transform = `translateX(-${pos}px)`;
+        }
+
+        setInterval(() => {
+            const max = track.scrollWidth - track.parentElement.clientWidth;
+            pos = pos >= max ? 0 : pos + 374;
+            track.style.transform = `translateX(-${pos}px)`;
+        }, 4000);
+
+        function openCV(e) {
+            e.preventDefault();
+            document.getElementById('cvModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCV() {
+            document.getElementById('cvModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.getElementById('cvModal').onclick = function(e) {
+            if (e.target === this) closeCV();
+        };
+
+        document.querySelector('.cv-modal-body').oncontextmenu = e => e.preventDefault();
+    </script>
+</body>
+</html>
+

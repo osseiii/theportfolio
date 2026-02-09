@@ -288,6 +288,7 @@
             justify-content: center;
             font-size: 28px;
             transition: all 0.4s ease;
+            flex-shrink: 0;
         }
 
         .project-card:hover .project-icon {
@@ -592,6 +593,7 @@
             z-index: 10000;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
 
         .cv-modal.active {
@@ -600,7 +602,7 @@
 
         .cv-modal-content {
             background: #1a1a1a;
-            width: 90%;
+            width: 100%;
             max-width: 900px;
             max-height: 90vh;
             border-radius: 20px;
@@ -618,6 +620,10 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        .cv-modal-header h3 {
+            font-size: 18px;
+        }
+
         .cv-modal-close {
             background: rgba(255, 255, 255, 0.1);
             border: none;
@@ -628,6 +634,7 @@
             cursor: pointer;
             font-size: 20px;
             transition: all 0.3s ease;
+            flex-shrink: 0;
         }
 
         .cv-modal-close:hover {
@@ -710,6 +717,8 @@
             font-size: 14px;
         }
 
+        /* ===== RESPONSIVE STYLES ===== */
+        
         @media (max-width: 968px) {
             .contact-grid {
                 grid-template-columns: 1fr;
@@ -718,8 +727,304 @@
         }
 
         @media (max-width: 768px) {
-            h1 { font-size: 36px; }
-            .profile-popup { right: 20px; width: calc(100% - 40px); max-width: 280px; }
+            .container {
+                padding: 0 16px;
+            }
+
+            /* Header responsive */
+            header {
+                padding: 60px 0 80px;
+            }
+
+            h1 {
+                font-size: 32px;
+                line-height: 1.2;
+            }
+
+            .greeting {
+                font-size: 14px;
+            }
+
+            .intro {
+                font-size: 16px;
+                padding: 0 10px;
+            }
+
+            .cta-btn {
+                padding: 12px 28px;
+                font-size: 14px;
+            }
+
+            /* Profile popup responsive */
+            .profile-popup {
+                top: 80px;
+                right: 16px;
+                left: 16px;
+                width: auto;
+                animation: slideInProfileMobile 0.8s ease-out 2.2s forwards;
+            }
+
+            @keyframes slideInProfileMobile {
+                from { 
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+                to { 
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .profile-image {
+                width: 100px;
+                height: 100px;
+                font-size: 40px;
+            }
+
+            .profile-name {
+                font-size: 18px;
+            }
+
+            /* Projects responsive */
+            .projects {
+                padding: 40px 0;
+            }
+
+            .project-card {
+                padding: 24px;
+                margin-bottom: 24px;
+            }
+
+            .project-title {
+                font-size: 20px;
+            }
+
+            .project-description {
+                font-size: 14px;
+            }
+
+            .project-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 24px;
+            }
+
+            /* Make highlights visible on mobile */
+            .project-highlights {
+                max-height: none;
+                opacity: 1;
+                margin-top: 16px;
+            }
+
+            .highlight-tag {
+                font-size: 12px;
+                padding: 5px 12px;
+            }
+
+            /* Testimonials responsive */
+            .testimonials-section {
+                padding: 60px 0;
+            }
+
+            .section-title {
+                font-size: 26px;
+                margin-bottom: 32px;
+            }
+
+            .testimonial-card {
+                min-width: 280px;
+                padding: 20px;
+            }
+
+            .testimonials-container {
+                padding: 10px 0;
+            }
+
+            .testimonial-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+
+            .testimonial-info h4 {
+                font-size: 15px;
+            }
+
+            .testimonial-role {
+                font-size: 12px;
+            }
+
+            .testimonial-text {
+                font-size: 13px;
+            }
+
+            /* Contact section responsive */
+            .contact-section {
+                padding: 60px 0 40px;
+            }
+
+            .contact-info h2 {
+                font-size: 28px;
+            }
+
+            .contact-subtitle {
+                font-size: 16px;
+                margin-bottom: 32px;
+            }
+
+            .social-links {
+                gap: 12px;
+                margin-bottom: 32px;
+            }
+
+            .social-link {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+
+            .contact-form {
+                padding: 24px;
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+            }
+
+            .form-group label {
+                font-size: 13px;
+            }
+
+            .form-group input,
+            .form-group textarea {
+                padding: 10px 14px;
+                font-size: 14px;
+            }
+
+            .submit-btn {
+                padding: 12px;
+                font-size: 15px;
+            }
+
+            .cv-link {
+                padding: 12px 32px;
+                font-size: 15px;
+            }
+
+            /* CV Modal responsive */
+            .cv-modal {
+                padding: 16px;
+            }
+
+            .cv-modal-content {
+                border-radius: 16px;
+            }
+
+            .cv-modal-header {
+                padding: 16px 20px;
+            }
+
+            .cv-modal-header h3 {
+                font-size: 16px;
+                line-height: 1.3;
+                padding-right: 10px;
+            }
+
+            .cv-modal-close {
+                width: 32px;
+                height: 32px;
+                font-size: 18px;
+            }
+
+            .cv-modal-body {
+                padding: 24px 20px;
+                max-height: calc(90vh - 70px);
+            }
+
+            .cv-watermark {
+                font-size: 50px;
+            }
+
+            .cv-section h3 {
+                font-size: 20px;
+                margin-bottom: 16px;
+            }
+
+            .cv-item h4 {
+                font-size: 16px;
+            }
+
+            .cv-meta {
+                font-size: 13px;
+            }
+
+            .cv-item p {
+                font-size: 14px;
+            }
+
+            .cv-skill-tag {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+
+            /* Smiley popup responsive */
+            .smiley-popup {
+                font-size: 80px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            .intro {
+                font-size: 15px;
+            }
+
+            .project-card {
+                padding: 20px;
+            }
+
+            .project-header {
+                gap: 12px;
+            }
+
+            .project-title {
+                font-size: 18px;
+            }
+
+            .testimonial-card {
+                min-width: 250px;
+            }
+
+            .contact-info h2 {
+                font-size: 24px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .cv-modal-header h3 {
+                font-size: 14px;
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .project-card:active {
+                transform: scale(0.98);
+            }
+
+            .cta-btn:active,
+            .submit-btn:active,
+            .cv-link:active {
+                transform: scale(0.95);
+            }
+
+            .social-link:active {
+                transform: translateX(4px);
+            }
         }
     </style>
 </head>
@@ -757,9 +1062,7 @@
                 </div>
                 <p class="project-description">Building robust, secure, and scalable network infrastructure solutions.</p>
                 <div class="project-highlights">
-            
                     <span class="highlight-tag">Network Security</span>
-    
                 </div>
                 <a href="#" class="project-link">View Projects →</a>
             </div>
@@ -773,7 +1076,6 @@
                 <div class="project-highlights">
                     <span class="highlight-tag">Mobile App Design</span>
                     <span class="highlight-tag">Web Interfaces</span>
-                    
                 </div>
                 <a href="#" class="project-link">See Behance →</a>
             </div>
@@ -785,7 +1087,6 @@
                 </div>
                 <p class="project-description">Writing clean, efficient code that brings creative visions to life.</p>
                 <div class="project-highlights">
-                    
                     <span class="highlight-tag">Full-Stack Dev</span>
                     <span class="highlight-tag">Web Animations</span>
                 </div>
@@ -852,105 +1153,6 @@
                         <p class="testimonial-text">"Exceptional work on our network infrastructure. The system runs flawlessly!"</p>
                         <div class="testimonial-stars">★★★★★</div>
                     </div>
-                   <!-- <div class="testimonial-card">
-                        <div class="testimonial-header">
-                            <div class="testimonial-avatar"></div>
-                            <div class="testimonial-info">
-                                <h4>Sarah Kim</h4>
-                                <div class="testimonial-role">Creative Director</div>
-                            </div>
-                        </div>
-                        <p class="testimonial-text">"The UI/UX designs exceeded our expectations. A true design master!"</p>
-                        <div class="testimonial-stars">★★★★★</div>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="testimonial-header">
-                            <div class="testimonial-avatar">MP</div>
-                            <div class="testimonial-info">
-                                <h4>Michael Peterson</h4>
-                                <div class="testimonial-role">CTO, StartUp Labs</div>
-                            </div>
-                        </div>
-                        <p class="testimonial-text">"Clean, efficient code. Delivered ahead of schedule!"</p>
-                        <div class="testimonial-stars">★★★★★</div>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="testimonial-header">
-                            <div class="testimonial-avatar">LR</div>
-                            <div class="testimonial-info">
-                                <h4>Lisa Rodriguez</h4>
-                                <div class="testimonial-role">Finance Manager</div>
-                            </div>
-                        </div>
-                        <p class="testimonial-text">"Incredible financial insights. Returns have been outstanding!"</p>
-                        <div class="testimonial-stars">★★★★★</div>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="testimonial-header">
-                            <div class="testimonial-avatar">DM</div>
-                            <div class="testimonial-info">
-                                <h4>David Martinez</h4>
-                                <div class="testimonial-role">Wedding Planner</div>
-                            </div>
-                        </div>
-                        <p class="testimonial-text">"Stunning photography! Every shot captures emotion perfectly."</p>
-                        <div class="testimonial-stars">★★★★★</div>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="testimonial-header">
-                            <div class="testimonial-avatar">EJ</div>
-                            <div class="testimonial-info">
-                                <h4>Emily Johnson</h4>
-                                <div class="testimonial-role">Product Manager</div>
-                            </div>
-                        </div>
-                        <p class="testimonial-text">"Great communication and creative solutions. A true professional!"</p>
-                        <div class="testimonial-stars">★★★★★</div>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="testimonial-header">
-                            <div class="testimonial-avatar">RB</div>
-                            <div class="testimonial-info">
-                                <h4>Robert Brown</h4>
-                                <div class="testimonial-role">IT Director</div>
-                            </div>
-                        </div>
-                        <p class="testimonial-text">"Network security has never been better. Best decision we made!"</p>
-                        <div class="testimonial-stars">★★★★★</div>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="testimonial-header">
-                            <div class="testimonial-avatar">AC</div>
-                            <div class="testimonial-info">
-                                <h4>Amanda Chen</h4>
-                                <div class="testimonial-role"> <!-- Founder, DesignHub</div>
-                            </div>
-                        </div>
-                        <p class="testimonial-text">"Incredible attention to detail. Perfectly aligned with our brand!"</p>
-                        <div class="testimonial-stars">★★★★★</div>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="testimonial-header">
-                            <div class="testimonial-avatar">TW</div>
-                            <div class="testimonial-info">
-                                <h4>Thomas White</h4>
-                                <div class="testimonial-role">Business Owner</div>
-                            </div>
-                        </div>
-                        <p class="testimonial-text">"Financial planning was spot-on. Business is now more profitable!"</p>
-                        <div class="testimonial-stars">★★★★★</div>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="testimonial-header">
-                            <div class="testimonial-avatar">NG</div>
-                            <div class="testimonial-info">
-                                <h4>Nina Garcia</h4>
-                                <div class="testimonial-role">Marketing Director</div>
-                            </div>
-                        </div>
-                        <p class="testimonial-text">"From concept to execution, everything was perfect!"</p>
-                        <div class="testimonial-stars">★★★★★</div>-->
-                    </div>
                 </div>
             </div>
             <div class="testimonial-nav">
@@ -979,11 +1181,13 @@
                         <a href="https://instagram.com/ossei.anto" class="social-link" target="_blank">
                             <span>📸</span> Follow on Instagram
                         </a>
-                         <a href="https://x.com/ossei_anto" class="social-link" target="_blank">
-                            <span>X</span> Follw me on Twitter
+                        <a href="https://x.com/ossei_anto" class="social-link" target="_blank">
+                            <span>𝕏</span> Follow me on Twitter
+                        </a>
                         <a href="https://snapchat.com/add/osseiii" class="social-link" target="_blank">
-                            <span>👻</span> Add me on Snapchat </a>
-               </div>
+                            <span>👻</span> Add me on Snapchat
+                        </a>
+                    </div>
                     <div style="text-align: center; margin-top: 20px;">
                         <a href="#" class="cv-link" onclick="openCV(event)">📄 View My CV</a>
                     </div>
@@ -1004,7 +1208,7 @@
                     </div>
                     <div class="form-group">
                         <label for="message">Message</label>
-                        <i><textarea id="message" name="message" required placeholder="Hi there, how can I help you?..."></textarea></i>
+                        <textarea id="message" name="message" required placeholder="Hi there, how can I help you?..."></textarea>
                     </div>
                     <input type="hidden" name="_subject" value="New Portfolio Contact!">
                     <input type="hidden" name="_captcha" value="false">
@@ -1023,31 +1227,8 @@
             <div class="cv-modal-body">
                 <div class="cv-watermark">PREVIEW ONLY</div>
                 <div class="cv-section">
-                  <!--  <h3>Professional Summary</h3>
-                    <p style="color: #94a3b8;">Multi-disciplinary professional with expertise in network engineering, UI/UX design, web development, finance, and photography.</p>
+                    <!-- Add your CV content here -->
                 </div>
-                <div class="cv-section">
-                    <h3>Work Experience</h3>
-                    <div class="cv-item">
-                        <h4>Senior Network Engineer</h4>
-                        <div class="cv-meta">Tech Innovations Inc. • 2022 - Present</div>
-                        <p>Designed enterprise-level network infrastructure for Fortune 500 clients.</p>
-                    </div>
-                    <div class="cv-item">
-                        <h4>UI/UX Designer & Developer</h4>
-                        <div class="cv-meta">Freelance • 2020 - Present</div>
-                        <p>Created engaging user interfaces for 50+ clients across various industries.</p>
-                    </div>
-                </div>
-                <div class="cv-section">
-                    <h3>Skills & Expertise</h3>
-                    <div class="cv-skills">
-                        <span class="cv-skill-tag">Network Architecture</span>
-                        <span class="cv-skill-tag">UI/UX Design</span>
-                        <span class="cv-skill-tag">Financial Analysis</span>
-                        <span class="cv-skill-tag">Photography</span>
-                    </div>
-                </div>-->
             </div>
         </div>
     </div>
@@ -1063,17 +1244,31 @@
         const track = document.getElementById('track');
         
         function scroll(dir) {
-            const w = 374;
+            const cardWidth = window.innerWidth < 768 ? 304 : 374; // Adjust for mobile
             const max = track.scrollWidth - track.parentElement.clientWidth;
-            pos = dir === 'right' ? Math.min(pos + w, max) : Math.max(pos - w, 0);
+            pos = dir === 'right' ? Math.min(pos + cardWidth, max) : Math.max(pos - cardWidth, 0);
             track.style.transform = `translateX(-${pos}px)`;
         }
 
-        setInterval(() => {
+        // Auto-scroll testimonials
+        let autoScrollInterval = setInterval(() => {
             const max = track.scrollWidth - track.parentElement.clientWidth;
-            pos = pos >= max ? 0 : pos + 374;
+            const cardWidth = window.innerWidth < 768 ? 304 : 374;
+            pos = pos >= max ? 0 : pos + cardWidth;
             track.style.transform = `translateX(-${pos}px)`;
         }, 4000);
+
+        // Pause auto-scroll on hover/touch
+        const testimonialsContainer = document.querySelector('.testimonials-container');
+        testimonialsContainer.addEventListener('mouseenter', () => clearInterval(autoScrollInterval));
+        testimonialsContainer.addEventListener('mouseleave', () => {
+            autoScrollInterval = setInterval(() => {
+                const max = track.scrollWidth - track.parentElement.clientWidth;
+                const cardWidth = window.innerWidth < 768 ? 304 : 374;
+                pos = pos >= max ? 0 : pos + cardWidth;
+                track.style.transform = `translateX(-${pos}px)`;
+            }, 4000);
+        });
 
         function openCV(e) {
             e.preventDefault();
@@ -1091,13 +1286,19 @@
         };
 
         document.querySelector('.cv-modal-body').oncontextmenu = e => e.preventDefault();
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
